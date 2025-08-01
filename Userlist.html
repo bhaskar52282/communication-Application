@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <script src="DeleteUser.JS"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+  <!--Start Navigation bar-->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="Chatlist.html">Group Chat</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="Userlist.html">Manage users</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="Documentlist.html">Manage Document</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="Logout.html">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!--End Navigation bar-->
+
+  <!--Start Table-->
+  <div class="container mt-4">
+    <table class="table table-striped">
+      <h1>Users</h1>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th></th>
+        <script>
+          let users = JSON.parse(localStorage.getItem("usersLocastorage"));
+          for (let i in users) {
+            document.write(
+              `<tr><td> ${users[i].fullName} </td><td> ${users[i].email} </td>
+                   <td>
+                    <a href="EditUser.html?${users[i].id}">Edit</a> |
+                    <a data-bs-toggle="modal" data-bs-target="#DeleteModal" onclick="deleteUserId(${users[i].id})" href="">Delete</a>
+                   </td>
+              </tr>`
+            );
+          }
+          //alert(window.location.href);
+        </script>
+      </tr>
+    </table>
+  </div>
+
+  <!--End Table-->
+  <!-- Delete Modal -->
+  <div class="modal fade" id="DeleteModal" tabindex="-1" aria-labelledby="DeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="DeleteModalLabel">Confirm User Deletion</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Are you Sure ?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="deleteUser()">ok</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
